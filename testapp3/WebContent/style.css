@@ -1,0 +1,67 @@
+@charset "ISO-8859-1";
+
+body {
+	background: url("back1.jpg");
+	color: white;
+	font-family: sans-serif;
+	text-align: center;
+}
+
+h1 {
+	font-family: 'forte';
+	font-size: 60px;
+	margin: 10px;
+}
+
+p {
+	font-size: 14px;
+}
+
+.editor {
+	width: 95%;
+	height: auto;
+	padding-left: 80px;
+}
+
+.tools {
+	float: left;
+	width: 30%;
+	text-align: left;
+	padding-left: 80px;
+}
+
+.div1 {
+	width: 1000px;
+	height: 1000px;
+	background: url("dog1.jpg")
+}
+
+.img {
+	padding-left: 300px;
+	width: 806px;
+	height: 600px;
+}
+
+button {
+	color: white;
+	background: #45ADA8;
+	font-family: sans-serif;
+	border-radius: 10%;
+	border: 2px solid white;
+	padding: 5px;
+	margin-top: 2px;
+}
+
+input[type="file"] {
+	color: white;
+	background: #45ADA8;
+	font-family: sans-serif;
+	border-radius: 2%;
+	border: 2px solid white;
+	margin-top: 5px;
+}
+
+.p1 {
+	font-size: 24px;
+	font-weight: bold;
+}

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+
+<script src="html2canvas.js"></script>
+<script src="upload.js"></script>
+<link rel="stylesheet" type="text/css" href="upload.css">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/camanjs/4.1.2/caman.full.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+	
+</script>
+
+<style>
+</style>
+</head>
+
+
+<body>
+
+	<div class="content">
+
+		<br>
+
+		<div class="content1">
+			<div id="myModal" class="modal">
+				<div id="container">
+
+					<div class="message">
+
+						<div class="alert">
+
+							<div align="center">
+								<span><button class="close" onclick="close1()"
+										style="background-color: white; border: none; outline: none; hover-background-color: white">&times;</button></span>
+								<img src="icon2.png" width="85px"
+									style="margin-left: 46px; margin-top: 30px; margin-right: 46px" />
+							</div>
+
+							<br>
+							<h3 color="black">Your Photo Uploaded Sucsessfully!</h3>
+							<br>
+							<button class="yes">ok</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<img src="drive.png" width="100%" align="center"><br>
+
+
+		</div>
+		<div class="inner">
+			<button class="buttonup" onclick="doUpload();alertgree()" style="margin-left: 20px"
+				id="upload">Upload File</button>
+			<button class="buttonup" style="margin: 40px" onclick="home()">Back
+				to Home</button>
+		</div>
+	</div>
+
+	<style>
+</style>
+
+
+	<script>
+		//convert data to image
+		function b64toBlob(b64Data, contentType, sliceSize) {
+			contentType = contentType || '';
+			sliceSize = sliceSize || 512;
+
+			var byteCharacters = atob(b64Data);
+			var byteArrays = [];
+
+			for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+				var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+				var byteNumbers = new Array(slice.length);
+				for (var i = 0; i < slice.length; i++) {
+					byteNumbers[i] = slice.charCodeAt(i);
+				}
+
+				var byteArray = new Uint8Array(byteNumbers);
+
+				byteArrays.push(byteArray);
+			}
+
+			var blob = new Blob(byteArrays, {
+				type : contentType
+			});
+			return blob;
+		}
+
+		function doUpload() {
+
+			const name = localStorage.getItem('Name');
+
+			const urlParams = new URLSearchParams(window.location.search);
+			const code = urlParams.get('code');
+			const redirect_uri = "http://localhost:8083/testapp3/upload.html" // replace with your redirect_uri;
+			const client_secret = "YyRHq5KleyTakbcYwYR8SWXf"; // replace with your client secret
+			const scope = "https://www.googleapis.com/auth/drive";
+			var access_token = "";
+			var client_id = "634549402292-a7n0uflhegm58d8f3d6o6npul2gb64le.apps.googleusercontent.com"// replace it with your client id;
+
+			$.ajax({
+				type : 'POST',
+				url : "https://www.googleapis.com/oauth2/v4/token",
+				data : {
+					code : code,
+					redirect_uri : redirect_uri,
+					client_secret : client_secret,
+					client_id : client_id,
+					scope : scope,
+					grant_type : "authorization_code"
+				},
+				dataType : "json",
+				success : function(resultData) {
+
+					localStorage
+							.setItem("accessToken", resultData.access_token);
+					localStorage.setItem("refreshToken",
+							resultData.refreshToken);
+					localStorage.setItem("expires_in", resultData.expires_in);
+					window.history.pushState({}, document.title,
+							"/GitLoginApp/" + "upload.html");
+
+				}
+			});
+
+			var that = this;
+
+			base64image = name;
+
+			console.log("base64image", base64image);
+
+			const formData = new FormData();
+
+			var block = base64image.split(";");
+			var contentType = block[0].split(":")[1];
+			// get the real base64 content of the file
+			var realData = block[1].split(",")[1];
+
+			// Convert it to a blob to upload
+			var blob = b64toBlob(realData, contentType);
+			formData.append("image", blob);
+
+			$.ajax({
+				type : "POST",
+				beforeSend : function(request) {
+					request.setRequestHeader("Authorization", "Bearer" + " "
+							+ localStorage.getItem("accessToken"));
+
+				},
+				url : "https://www.googleapis.com/upload/drive/v2/files",
+				data : {
+					uploadType : "media"
+				},
+				xhr : function() {
+					var myXhr = $.ajaxSettings.xhr();
+					if (myXhr.upload) {
+						myXhr.upload.addEventListener('progress',
+								that.progressHandling, false);
+					}
+					return myXhr;
+				},
+				success : function(data) {
+					console.log("success", data);
+				},
+				error : function(error) {
+					console.log("error", error);
+				},
+				async : true,
+				data : formData,
+				cache : false,
+				contentType : false,
+				processData : false,
+				timeout : 60000
+
+			});
+
+		}
+
+		//close alert
+		function close1() {
+			location.href = "http://localhost:8083/testapp3/upload.html";
+
+		}
+
+		//alert box 
+	
+			
+	function alertgree(msg, gfg) {
+
+			var confirmBox = $("#container");
+
+			confirmBox.find(".message").text(msg);
+
+			confirmBox.find(".yes").unbind().click(function() {
+				confirmBox.hide();
+			});
+			confirmBox.find(".yes").click(gfg);
+			confirmBox.show();
+
+	
+		}
+
+		//Back to home
+		function home() {
+			location.href = "http://localhost:8083/testapp3/";
+		}
+	</script>
+
+
+</body>
+</html>

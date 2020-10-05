@@ -1,0 +1,352 @@
+<!--<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+
+<body>
+ <script src="main.js"></script> 
+<button onclick="myFunction()">Try it</button>
+
+</body>
+</html>-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Git Login App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="main.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+<script type="text/javascript" src="script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/camanjs/4.1.2/caman.full.min.js"></script>
+<script src="html2canvas.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   <script src="main.js"></script>
+   <script src="script.js"></script>
+   <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+   
+   <script>
+   function callme(){
+	  
+	//console.log("ggg");
+	var element = document.getElementById("box1");
+	
+	html2canvas(element).then(function(canvas) {
+	    // Export the canvas to its data URI representation
+		var base64image= canvas.toDataURL("image1/png");
+
+	    // Open the image in a new window
+	  //  window.open(base64image , "_blank");
+	    var button = document.getElementById('btn-download');
+	    //var button = document.getElementById('btn-download');
+	    button.href = base64image;
+	    
+		console.log("base64image",base64image);
+		localStorage.setItem('Name',base64image);
+	});
+	
+   
+   
+   
+   
+   
+   
+   
+   }
+	
+
+</script>
+<style>
+body{
+
+margin:0;
+padding:0;
+font-family:sans-serif;
+background:linear-gradient(#E0EAFC;#CFDEF3);
+height:100vh;
+background-color: powderblue;
+}
+.center,.content{
+
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+}
+.content{
+
+
+display:block;
+}
+.click-me{
+    color:white;
+	background:#45ADA8;
+	font-family:sans-serif;
+	border-radius:10%;
+	
+	
+
+
+
+
+display:block;
+
+cursor:pointer;
+
+}
+#click{
+
+
+display:none;
+}
+.click-me:hover{
+
+background:#45ADA8;
+}
+.content{
+opacity:0;
+visibility:hidden;
+width:400px;
+height:350px;
+background:white;
+border-radius:3px;
+box-shadow:0 2px 12px 0 rgba(0,0,0,0.4);
+}
+.header{
+height:68px;
+background:#a33443;
+overflow:hidden;
+border-radius:3px 3px 0 0;
+box-shadow:0 2px 3px 0 rgba(0,0,0,.2);
+
+
+
+}
+.hetop:20px;ader h2{
+
+color:white;
+padding-left:32px;
+font-weight:normal;
+
+
+}
+.fa-times{
+
+position:absolute;
+right:20px;
+top:20px;
+font-size:20px;
+font-weight:bold;
+cursor:pointer;
+
+}
+.fa-check{
+
+font-size:50px;
+color:#27ae60;
+
+font-weight:bold;
+height:80px;
+width:80px;
+border:1px solid #27ae60;
+text-align:center;
+padding-top:13px;
+border-radius:50%;
+box-sizing:border-box;
+margin: 30px 0 0 160px;
+
+
+}
+
+.line{
+bottom:60px;
+width:100%;
+height:1px;
+background:sliver;
+
+
+}
+.close-btn{
+
+position:absolute;
+bottom:12px;
+right:25px;
+border:1px solid #27ae60;
+border-radius:3px;
+color:#27ae60;
+padding:8px 10px;
+font-size:18px;
+cursor:pointer;
+
+}
+.close-btn:hover{
+
+background:#27ae60;
+color:white;
+transition:.5s;
+}
+#click:checked~.content{
+
+opacity:1;
+visibility:visible;
+}
+.fa-google-drive {
+  background: conic-gradient( red, green , blue );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  
+  -webkit-text-fill-color: transparent;
+
+height:20px;
+width:20px;
+
+
+font-size:50px;
+color:#27ae60;
+
+font-weight:bold;
+height:80px;
+width:80px;
+border:1px solid #27ae60;
+text-align:center;
+padding-top:13px;
+border-radius:50%;
+box-sizing:border-box;
+margin: 30px 0 0 160px;
+
+
+}
+.drive{
+margin-top:25px;
+margin-left:20px;
+width:80px;
+height:80px;
+}
+.drive1{
+margin-top:10px;
+margin-left:90px;
+width:80px;
+height:80px;
+}
+.up1{
+height:30px;
+margin-left:23px;
+margin-top:50px;
+wideth:100px;
+background:#a33443;
+}
+.do1{
+height:30px;
+margin-left:60px;
+width:100px;
+background:#a33443;
+}
+
+</style>
+</head>
+<body>
+<h1>PHOTO   EDITOR</h1>
+
+
+
+<div class="editor">
+<div class="tools">
+
+
+
+
+
+
+<input type="file" id="load"/><br/><br/>
+
+
+<button id="reset">Reset</button> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+
+ <button onclick="callme()" ><label for="click" class="click-me">Save</label></button>
+<!-- <button id="login">
+           Upload Files to Drive
+       </button>-->
+       
+      
+<p>
+<p class="p1">Effects</p>
+<label for="brightness">Brightness</label>
+<input id="brightness" name="brightness" type="range" min=-100 max=100 value=0>
+</p>
+<p>
+<label for="vibrance">Vibrance &nbsp;</label>
+<input id="vibrance" name="vibrance" type="range" min=-100 max=100 value=0>
+</p>
+<p>
+<label for="hue" >Hue  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;</label>
+<input id="hue" name="hue" type="range" min=-100 max=100 value=0>
+</p>
+<p>
+<label for="gamma">Gamma  &nbsp;  &nbsp; </label>
+<input id="gamma" name="gamma" type="range" min=0 max=10 value=0>
+</p>
+<p class="p1">Filters</p>
+<button id="vintage" class="filter">Vintage</button>
+
+<button id="lomo" class="filter">Lomo</button>
+<button id="clarity" class="filter">Clarity</button>
+<button id="orangePeel" class="filter">OrangePeel</button>
+
+<br>
+<h4>Add a message over your image:</h4>
+<input type="text" id="message" placeholder="Type a meesage">
+<button id="submit" >Add Text</button>
+</div>
+
+
+<div id="box1">
+<img src="board3.jpg"  id="image" alt="Girl in a jacket" width="806" height="600">
+</div>
+
+     
+     <!-- <form action="upload.html" method="POST"> 
+     <input type="text" id="name"/>
+        <input type="submit" id="login1" onclick="hh()" value="Upload Files to Drive1">
+          
+       </form>
+-->
+<div class="center">
+
+<input type="checkbox" id="click">
+
+<div class="content">
+
+<div class="header">
+<h2 style="text-align:center;">Save Your File</h2>
+<label for="click" class="fas fa-times"></label>
+
+
+</div>
+<br/><br/>
+
+<img class="drive" id="blah" src="drive.png" alt="your image" />
+
+ <img class="drive1" id="blah" src="download.png" alt="your image" />
+
+
+
+<button class="up1" id="login">Upload to Drive</button>
+<button class="do1"><a href="#" class="button" id="btn-download" download="my-file-name.png" style="text-decoration:none;color:white">Download</a></button>
+
+</div>
+</div>
+</div>
+
+
+
+      
+
+   </div> 
+</body>
+</html>
